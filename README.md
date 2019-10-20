@@ -47,6 +47,8 @@ You can browse the FreeBSD port collection at http://ftp.freebsd.org/pub/FreeBSD
 * [BeagleBone](http://beagleboard.org/)
 * [Chromebook Snow](http://www.samsung.com/ca/consumer/office/chrome-devices/chromebooks/XE303C12-A01CA)
 * [Cubieboard](http://cubieboard.org/)
+* [NanoPi-K1-Plus](https://www.friendlyarm.com/index.php?route=product/product&path=69&product_id=220)
+* [NanoPi-NE02](https://www.friendlyarm.com/index.php?route=product/product&path=69&product_id=180)
 * [OrangePi](http://www.orangepi.org)
 * [PandaBoard](http://pandaboard.org/)
 * [Pine64](https://www.pine64.org/)
@@ -91,7 +93,7 @@ Using the script to build an image consists of a few steps:
 
 3. RUN crochet.sh as root
 
-   `$ sudo /bin/sh crochet.sh -c <config file>`
+   `$ sudo /bin/sh crochet.sh -c conf/<config file>`
 
    The script will first check that you have any needed sources.
    If you don't, the script will tell you exactly how to obtain the
