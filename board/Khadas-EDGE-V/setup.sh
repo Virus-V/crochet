@@ -1,7 +1,7 @@
 #
+KERNCONF=EXPERT
 TARGET=aarch64
 TARGET_ARCH=aarch64
-KERNCONF=KHADAS
 UBOOT_DIR="u-boot-khadas-edge-v"
 UBOOT_PATH="/usr/local/share/u-boot/${UBOOT_DIR}"
 UBOOT_BIN="u-boot.itb"
@@ -13,7 +13,7 @@ khadas_edge_v_check_uboot ( ) {
 strategy_add $PHASE_CHECK khadas_edge_v_check_uboot
 
 #
-# Khadas EDGE V uses EFI, so the first partition will be a FAT partition.
+# Khadas EDGE-V uses EFI, so the first partition will be a FAT partition.
 #
 khadas_edge_v_partition_image ( ) {
 	echo "Installing Partitions on ${DISK_MD}"
@@ -36,19 +36,19 @@ strategy_add $PHASE_BUILD_OTHER  freebsd_loader_efi_build
 strategy_add $PHASE_BOOT_INSTALL mkdir -p efi efi/boot
 strategy_add $PHASE_BOOT_INSTALL freebsd_loader_efi_copy efi/boot/bootaa64.efi
 
-# NanoPi K1 Plus puts the kernel on the FreeBSD UFS partition.
+# Khadas EDGE-V puts the kernel on the FreeBSD UFS partition.
 strategy_add $PHASE_FREEBSD_BOARD_INSTALL board_default_installkernel .
 
 # overlay/etc/fstab mounts the FAT partition at /boot/msdos
 strategy_add $PHASE_FREEBSD_BOARD_INSTALL mkdir -p boot/msdos
 
-fix_dtb_path () {                                                                                                                                                                                           
+fix_dtb_path () {
 	echo "Fix DTB path to ${BOARD_FREEBSD_MOUNTPOINT}/boot/dtb"
 	DTBFILE="${BOARD_FREEBSD_MOUNTPOINT}/boot/dtb/rockchip/rk3399-khadas-edge-v.dtb"
 	if [ -f ${DTBFILE} ] ; then
 		cp ${DTBFILE} ${BOARD_FREEBSD_MOUNTPOINT}/boot/dtb
 	fi
-}                                                                                                                                                                                                           
-                                                                                                                                                                                                            
+}
+
 PRIORITY=200 strategy_add $PHASE_FREEBSD_OPTION_INSTALL fix_dtb_path
 
